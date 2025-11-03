@@ -16,11 +16,15 @@ public class GUI extends JFrame implements ActionListener {
     ArrayList<String> correctOrder = new ArrayList<>(tileList);
     Color emptyColor = Color.LIGHT_GRAY;
     Game game;
+    JPanel panel2 = new JPanel();
+    JButton restartBtn = new JButton("Restart");
+    JButton shuffleBtn = new JButton("Shuffle");
+    JButton settingsBtn = new JButton("Settings");
 
     public GUI() {
         Collections.shuffle(tileList);
 
-        this.add(panel);
+        this.add(panel, BorderLayout.CENTER);
         panel.setLayout(new GridLayout(4, 4));
 
         for (int i = 0; i < 16; i++) {
@@ -33,6 +37,14 @@ public class GUI extends JFrame implements ActionListener {
                 buttons[i].setBackground(emptyColor);
             }
         }
+
+        this.add(panel2, BorderLayout.SOUTH);
+        panel2.add(restartBtn);
+        panel2.add(shuffleBtn);
+        panel2.add(settingsBtn);
+        restartBtn.setFocusPainted(false);
+        shuffleBtn.setFocusPainted(false);
+        settingsBtn.setFocusPainted(false);
 
         game = new Game(buttons, correctOrder, this);
 
