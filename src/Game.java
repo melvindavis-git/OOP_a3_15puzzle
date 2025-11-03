@@ -44,4 +44,26 @@ public class Game {
         pressedBtn.setEnabled(false);
         pressedBtn.setBackground(gui.getEmptyColor());
     }
+
+    public boolean isNextTo(int pressed, int empty) {
+        int pressedX = pressed / gameSize;
+        int pressedY = pressed % gameSize;
+
+        int emptyX = empty / gameSize;
+        int emptyY = empty % gameSize;
+
+        if ((pressedX == emptyX) && (pressedY == emptyY + 1)) {
+            return true;
+        }
+        if ((pressedX == emptyX) && (pressedY == emptyY - 1)) {
+            return true;
+        }
+        if ((pressedY == emptyY) && (pressedX == emptyX + 1)) {
+            return true;
+        }
+        if ((pressedY == emptyY) && (pressedX == emptyX - 1)) {
+            return true;
+        }
+        return false;
+    }
 }
