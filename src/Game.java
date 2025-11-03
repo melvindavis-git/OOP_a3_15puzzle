@@ -66,4 +66,13 @@ public class Game {
         }
         return false;
     }
+
+    public boolean isSolved() {
+        for (int i = 0; i < buttons.length; i++) {
+            if (!buttons[i].getText().equals(correctOrder.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
