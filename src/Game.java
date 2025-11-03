@@ -13,4 +13,22 @@ public class Game {
         this.correctOrder = correctOrder;
         this.gui = gui;
     }
+
+    public int getBtnPos(JButton btn) {
+        for (int i = 0; i < buttons.length; i++) {
+            if (buttons[i] == btn) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getEmptyPos() {
+        for (int i = 0; i < buttons.length; i++) {
+            if (!buttons[i].isEnabled()) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
