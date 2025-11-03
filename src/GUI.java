@@ -57,6 +57,64 @@ public class GUI extends JFrame implements ActionListener {
             }
             if (e.getSource() == settingsBtn) {
                 JFrame settingsFrame = new JFrame();
+                JPanel settingsPanel = new JPanel();
+                settingsPanel.setLayout(new GridLayout(3, 2));
+                settingsFrame.add(settingsPanel);
+
+                JLabel colorLabelTile = new JLabel("Tile color:");
+                colorLabelTile.setHorizontalAlignment(SwingConstants.CENTER);
+                settingsPanel.add(colorLabelTile);
+                String[] tileColorArray = {"Default", "Black", "White", "Red", "Blue"};
+                JComboBox<String> tileColors = new JComboBox<>(tileColorArray);
+                settingsPanel.add(tileColors);
+
+                JLabel colorLabelText = new JLabel("Text color:");
+                colorLabelText.setHorizontalAlignment(SwingConstants.CENTER);
+                settingsPanel.add(colorLabelText);
+                String[] textColorArray = {"Black", "White"};
+                JComboBox<String> textColors = new JComboBox<>(textColorArray);
+                settingsPanel.add(textColors);
+
+                JButton cancelBtn = new JButton("Cancel");
+                settingsPanel.add(cancelBtn);
+                cancelBtn.setFocusPainted(false);
+                cancelBtn.addActionListener(eCancel -> {
+                    settingsFrame.dispose();
+                });
+
+                JButton saveBtn = new JButton("Save");
+                settingsPanel.add(saveBtn);
+                saveBtn.setFocusPainted(false);
+                saveBtn.addActionListener(eSave -> {
+                    String color = (String) tileColors.getSelectedItem();
+                    BGcolor = switch (color) {
+                        case "Black" -> Color.BLACK;
+                        case "White" -> Color.WHITE;
+                        case "Red" -> Color.RED;
+                        case "Blue" -> Color.BLUE;
+                        default -> null;
+                    };
+                    String color2 = (String) textColors.getSelectedItem();
+                    textColor = switch (color2) {
+                        case "Black" -> Color.BLACK;
+                        case "White" -> Color.WHITE;
+                        default -> null;
+                    };
+                    if (color != null) {
+                        for (JButton btns : buttons) {
+                            if (btns.isEnabled()) {
+                                btns.setBackground(BGcolor);
+                            } else {
+                                btns.setBackground(emptyColor);
+                            }
+                        }
+                    }
+                    if (color2 != null) {
+                        for (JButton btns : buttons) {
+                           btns.setForeground(textColor);
+                        }
+                    }
+                });
 
                 settingsFrame.pack();
                 settingsFrame.setVisible(true);

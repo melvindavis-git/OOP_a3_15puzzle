@@ -39,7 +39,7 @@ public class Game {
 
         emptyBtn.setText(pressedBtn.getText());
         emptyBtn.setEnabled(true);
-        emptyBtn.setBackground(null);
+        emptyBtn.setBackground(gui.getBGcolor());
 
         pressedBtn.setText("");
         pressedBtn.setEnabled(false);
@@ -88,7 +88,7 @@ public class Game {
                 buttons[i].setBackground(gui.getEmptyColor());
             } else {
                 buttons[i].setEnabled(true);
-                buttons[i].setBackground(null);
+                buttons[i].setBackground(gui.getBGcolor());
             }
         }
     }
