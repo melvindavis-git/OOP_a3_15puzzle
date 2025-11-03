@@ -45,6 +45,27 @@ public class GUI extends JFrame implements ActionListener {
         restartBtn.setFocusPainted(false);
         shuffleBtn.setFocusPainted(false);
         settingsBtn.setFocusPainted(false);
+        ActionListener extraBtns = e -> {
+            if (e.getSource() == restartBtn) {
+                this.dispose();
+                new GUI();
+            }
+            if (e.getSource() == shuffleBtn) {
+                game.shuffle();
+            }
+            if (e.getSource() == settingsBtn) {
+                JFrame settingsFrame = new JFrame();
+
+                settingsFrame.pack();
+                settingsFrame.setVisible(true);
+                settingsFrame.setLocationRelativeTo(this);
+                settingsFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            }
+        };
+
+        restartBtn.addActionListener(extraBtns);
+        shuffleBtn.addActionListener(extraBtns);
+        settingsBtn.addActionListener(extraBtns);
 
         game = new Game(buttons, correctOrder, this);
 
