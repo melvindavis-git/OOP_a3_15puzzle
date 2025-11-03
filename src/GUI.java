@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static java.awt.Font.BOLD;
+
 public class GUI extends JFrame implements ActionListener {
 
     JPanel panel = new JPanel();
@@ -22,6 +24,10 @@ public class GUI extends JFrame implements ActionListener {
     JButton settingsBtn = new JButton("Settings");
     Color BGcolor;
     Color textColor;
+    JPanel panel3 = new JPanel();
+    int moveCounter = 0;
+    JLabel moveLabel = new JLabel("Moves: " + moveCounter);
+    Font font = new Font("Arial", BOLD, 18);
 
     public GUI() {
         Collections.shuffle(tileList);
@@ -54,6 +60,8 @@ public class GUI extends JFrame implements ActionListener {
             }
             if (e.getSource() == shuffleBtn) {
                 game.shuffle();
+                moveCounter = 0;
+                moveLabel.setText("Moves: " + moveCounter);
             }
             if (e.getSource() == settingsBtn) {
                 JFrame settingsFrame = new JFrame();
@@ -111,7 +119,7 @@ public class GUI extends JFrame implements ActionListener {
                     }
                     if (color2 != null) {
                         for (JButton btns : buttons) {
-                           btns.setForeground(textColor);
+                            btns.setForeground(textColor);
                         }
                     }
                 });
@@ -128,6 +136,10 @@ public class GUI extends JFrame implements ActionListener {
         settingsBtn.addActionListener(extraBtns);
 
         game = new Game(buttons, correctOrder, this);
+
+        this.add(panel3, BorderLayout.NORTH);
+        panel3.add(moveLabel);
+        moveLabel.setFont(font);
 
         setSize(600, 600);
         setVisible(true);
@@ -155,6 +167,8 @@ public class GUI extends JFrame implements ActionListener {
 
         if (game.isNextTo(pressed, empty)) {
             game.btnSwap(pressed, empty);
+            moveCounter++;
+            moveLabel.setText("Moves: " + moveCounter);
 
             if (game.isSolved()) {
                 JOptionPane.showMessageDialog(null, "You won!");
