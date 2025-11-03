@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Game {
 
@@ -74,5 +75,21 @@ public class Game {
             }
         }
         return true;
+    }
+
+    public void shuffle() {
+        ArrayList<String> shuffled = new ArrayList<>(correctOrder);
+        Collections.shuffle(shuffled);
+
+        for (int i = 0; i < 16; i++) {
+            buttons[i].setText(shuffled.get(i));
+            if (buttons[i].getText().isEmpty()) {
+                buttons[i].setEnabled(false);
+                buttons[i].setBackground(gui.getEmptyColor());
+            } else {
+                buttons[i].setEnabled(true);
+                buttons[i].setBackground(null);
+            }
+        }
     }
 }
