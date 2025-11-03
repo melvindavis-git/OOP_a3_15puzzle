@@ -31,4 +31,17 @@ public class Game {
         }
         return -1;
     }
+
+    public void btnSwap(int pressed, int empty) {
+        JButton pressedBtn = buttons[pressed];
+        JButton emptyBtn = buttons[empty];
+
+        emptyBtn.setText(pressedBtn.getText());
+        emptyBtn.setEnabled(true);
+        emptyBtn.setBackground(null);
+
+        pressedBtn.setText("");
+        pressedBtn.setEnabled(false);
+        pressedBtn.setBackground(gui.getEmptyColor());
+    }
 }
