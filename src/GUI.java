@@ -54,6 +54,10 @@ public class GUI extends JFrame implements ActionListener {
 
         if (game.isNextTo(pressed, empty)) {
             game.btnSwap(pressed, empty);
+
+            if (game.isSolved()) {
+                JOptionPane.showMessageDialog(null, "You won!");
+            }
         }
     }
 }
