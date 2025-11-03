@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class GUI extends JFrame implements ActionListener {
 
@@ -12,9 +13,12 @@ public class GUI extends JFrame implements ActionListener {
     ArrayList<String> tileList = new ArrayList<>
             (Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
                     "11", "12", "13", "14", "15", ""));
+    ArrayList<String> correctOrder = new ArrayList<>(tileList);
     Color emptyColor = Color.LIGHT_GRAY;
 
     public GUI() {
+        Collections.shuffle(tileList);
+
         this.add(panel);
         panel.setLayout(new GridLayout(4, 4));
 
@@ -33,6 +37,10 @@ public class GUI extends JFrame implements ActionListener {
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    public Color getEmptyColor(){
+        return emptyColor;
     }
 
     @Override
