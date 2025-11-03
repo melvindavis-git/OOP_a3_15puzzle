@@ -20,6 +20,8 @@ public class GUI extends JFrame implements ActionListener {
     JButton restartBtn = new JButton("Restart");
     JButton shuffleBtn = new JButton("Shuffle");
     JButton settingsBtn = new JButton("Settings");
+    Color BGcolor;
+    Color textColor;
 
     public GUI() {
         Collections.shuffle(tileList);
@@ -75,8 +77,16 @@ public class GUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public Color getEmptyColor(){
+    public Color getEmptyColor() {
         return emptyColor;
+    }
+
+    public Color getBGcolor() {
+        return BGcolor;
+    }
+
+    public Color getTextColor() {
+        return textColor;
     }
 
     @Override
