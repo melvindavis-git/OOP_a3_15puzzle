@@ -15,6 +15,7 @@ public class GUI extends JFrame implements ActionListener {
                     "11", "12", "13", "14", "15", ""));
     ArrayList<String> correctOrder = new ArrayList<>(tileList);
     Color emptyColor = Color.LIGHT_GRAY;
+    Game game;
 
     public GUI() {
         Collections.shuffle(tileList);
@@ -33,6 +34,8 @@ public class GUI extends JFrame implements ActionListener {
             }
         }
 
+        game = new Game(buttons, correctOrder, this);
+
         setSize(600, 600);
         setVisible(true);
         setLocationRelativeTo(null);
@@ -45,6 +48,12 @@ public class GUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        JButton pressedBtn = (JButton) e.getSource();
+        int pressed = game.getBtnPos(pressedBtn);
+        int empty = game.getEmptyPos();
 
+        if (game.isNextTo(pressed, empty)) {
+            game.btnSwap(pressed, empty);
+        }
     }
 }
