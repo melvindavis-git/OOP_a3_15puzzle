@@ -45,6 +45,7 @@ public class GUI extends JFrame implements ActionListener {
             buttons[i] = new JButton(tileList.get(i));
             buttons[i].setFocusPainted(false);
             buttons[i].addActionListener(this);
+            buttons[i].setFont(font);
             panel.add(buttons[i]);
             if (buttons[i].getText().isEmpty()) {
                 buttons[i].setEnabled(false);
@@ -65,6 +66,8 @@ public class GUI extends JFrame implements ActionListener {
         demoBtn.setFocusPainted(false);
         ActionListener extraBtns = e -> {
             if (e.getSource() == demoBtn) {
+                moveCounter = 0;
+                moveLabel.setText("Moves: " + moveCounter);
                 game.demoShuffle();
             }
             if (e.getSource() == restartBtn) {
@@ -179,7 +182,7 @@ public class GUI extends JFrame implements ActionListener {
         JFrame winFrame = new JFrame();
         JPanel winPanel = new JPanel();
         JPanel winPanelTop = new JPanel();
-        JLabel winLabel = new JLabel("You won! moves: " + moveCounter);
+        JLabel winLabel = new JLabel("You won! (" + moveCounter + " moves)");
         JPanel winPanelMid = new JPanel();
         JLabel playAgainLabel = new JLabel("Play again?");
         JPanel winPanelDown = new JPanel();
