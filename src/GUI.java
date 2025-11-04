@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -28,10 +29,12 @@ public class GUI extends JFrame implements ActionListener {
     int moveCounter = 0;
     JLabel moveLabel = new JLabel("Moves: " + moveCounter);
     Font font = new Font("Arial", BOLD, 18);
+    BufferedImage noIcon = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 
     public GUI() {
         Collections.shuffle(tileList);
 
+        this.setIconImage(noIcon);
         this.add(panel, BorderLayout.CENTER);
         panel.setLayout(new GridLayout(4, 4));
 
@@ -68,6 +71,7 @@ public class GUI extends JFrame implements ActionListener {
                 JPanel settingsPanel = new JPanel();
                 settingsPanel.setLayout(new GridLayout(3, 2));
                 settingsFrame.add(settingsPanel);
+                settingsFrame.setIconImage(noIcon);
 
                 JLabel colorLabelTile = new JLabel("Tile color:");
                 colorLabelTile.setHorizontalAlignment(SwingConstants.CENTER);
@@ -159,6 +163,46 @@ public class GUI extends JFrame implements ActionListener {
         return textColor;
     }
 
+    private void winWindow() {
+        JFrame winFrame = new JFrame();
+        JPanel winPanel = new JPanel();
+        JPanel winPanelTop = new JPanel();
+        JLabel winLabel = new JLabel("You won! moves: " + moveCounter);
+        JPanel winPanelMid = new JPanel();
+        JLabel playAgainLabel = new JLabel("Play again?");
+        JPanel winPanelDown = new JPanel();
+        JButton yesBtn = new JButton("Yes");
+        JButton noBtn = new JButton("No");
+
+        winFrame.add(winPanel);
+        winPanel.setLayout(new BorderLayout());
+        winPanel.add(winPanelTop, BorderLayout.NORTH);
+        winPanel.add(winPanelMid, BorderLayout.CENTER);
+        winPanel.add(winPanelDown, BorderLayout.SOUTH);
+        winPanelTop.add(winLabel);
+        winPanelMid.add(playAgainLabel);
+        winPanelDown.add(yesBtn);
+        winPanelDown.add(noBtn);
+
+        noBtn.addActionListener(e -> {
+            winFrame.dispose();
+        });
+        yesBtn.addActionListener(e -> {
+            winFrame.dispose();
+            moveCounter = 0;
+            moveLabel.setText("Moves: " + moveCounter);
+            game.shuffle();
+        });
+
+        winFrame.setUndecorated(true);
+        yesBtn.setFocusPainted(false);
+        noBtn.setFocusPainted(false);
+
+        winFrame.pack();
+        winFrame.setVisible(true);
+        winFrame.setLocationRelativeTo(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton pressedBtn = (JButton) e.getSource();
@@ -171,7 +215,7 @@ public class GUI extends JFrame implements ActionListener {
             moveLabel.setText("Moves: " + moveCounter);
 
             if (game.isSolved()) {
-                JOptionPane.showMessageDialog(null, "You won!");
+                winWindow();
             }
         }
     }
