@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -83,6 +84,19 @@ public class Game {
 
         for (int i = 0; i < 16; i++) {
             buttons[i].setText(shuffled.get(i));
+            if (buttons[i].getText().isEmpty()) {
+                buttons[i].setEnabled(false);
+                buttons[i].setBackground(gui.getEmptyColor());
+            } else {
+                buttons[i].setEnabled(true);
+                buttons[i].setBackground(gui.getBGcolor());
+            }
+        }
+    }
+
+    public void demoShuffle() {
+        for (int i = 0; i < 16; i++) {
+            buttons[i].setText(correctOrder.get(i));
             if (buttons[i].getText().isEmpty()) {
                 buttons[i].setEnabled(false);
                 buttons[i].setBackground(gui.getEmptyColor());

@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +25,7 @@ public class GUI extends JFrame implements ActionListener {
     JButton restartBtn = new JButton("Restart");
     JButton shuffleBtn = new JButton("Shuffle");
     JButton settingsBtn = new JButton("Settings");
+    JButton demoBtn = new JButton("Demo");
     Color BGcolor;
     Color textColor;
     JPanel panel3 = new JPanel();
@@ -49,14 +52,21 @@ public class GUI extends JFrame implements ActionListener {
             }
         }
 
+        panel.setBorder(new EmptyBorder(0, 50, 0, 50));
         this.add(panel2, BorderLayout.SOUTH);
+        panel2.add(demoBtn);
         panel2.add(restartBtn);
         panel2.add(shuffleBtn);
         panel2.add(settingsBtn);
+        panel2.setBorder(new EmptyBorder(10, 10, 10, 10));
         restartBtn.setFocusPainted(false);
         shuffleBtn.setFocusPainted(false);
         settingsBtn.setFocusPainted(false);
+        demoBtn.setFocusPainted(false);
         ActionListener extraBtns = e -> {
+            if (e.getSource() == demoBtn) {
+                game.demoShuffle();
+            }
             if (e.getSource() == restartBtn) {
                 this.dispose();
                 new GUI();
@@ -138,12 +148,14 @@ public class GUI extends JFrame implements ActionListener {
         restartBtn.addActionListener(extraBtns);
         shuffleBtn.addActionListener(extraBtns);
         settingsBtn.addActionListener(extraBtns);
+        demoBtn.addActionListener(extraBtns);
 
         game = new Game(buttons, correctOrder, this);
 
         this.add(panel3, BorderLayout.NORTH);
         panel3.add(moveLabel);
         moveLabel.setFont(font);
+        moveLabel.setBorder(new EmptyBorder( 10, 20, 10, 0));
 
         setSize(600, 600);
         setVisible(true);
@@ -176,6 +188,7 @@ public class GUI extends JFrame implements ActionListener {
 
         winFrame.add(winPanel);
         winPanel.setLayout(new BorderLayout());
+        winPanel.setBorder(new LineBorder(Color.DARK_GRAY));
         winPanel.add(winPanelTop, BorderLayout.NORTH);
         winPanel.add(winPanelMid, BorderLayout.CENTER);
         winPanel.add(winPanelDown, BorderLayout.SOUTH);
