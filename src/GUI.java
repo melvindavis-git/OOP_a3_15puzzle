@@ -33,6 +33,8 @@ public class GUI extends JFrame implements ActionListener {
     JLabel moveLabel = new JLabel("Moves: " + moveCounter);
     Font font = new Font("Arial", BOLD, 18);
     BufferedImage noIcon = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+    String tempTileColor = "Default";
+    String tempTextColor = "Black";
 
     public GUI() {
         Collections.shuffle(tileList);
@@ -92,6 +94,7 @@ public class GUI extends JFrame implements ActionListener {
                 String[] tileColorArray = {"Default", "Black", "White", "Red", "Blue"};
                 JComboBox<String> tileColors = new JComboBox<>(tileColorArray);
                 settingsPanel.add(tileColors);
+                tileColors.setSelectedItem(tempTileColor);
 
                 JLabel colorLabelText = new JLabel("Text color:");
                 colorLabelText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -99,6 +102,7 @@ public class GUI extends JFrame implements ActionListener {
                 String[] textColorArray = {"Black", "White"};
                 JComboBox<String> textColors = new JComboBox<>(textColorArray);
                 settingsPanel.add(textColors);
+                textColors.setSelectedItem(tempTextColor);
 
                 JButton cancelBtn = new JButton("Cancel");
                 settingsPanel.add(cancelBtn);
@@ -112,6 +116,7 @@ public class GUI extends JFrame implements ActionListener {
                 saveBtn.setFocusPainted(false);
                 saveBtn.addActionListener(eSave -> {
                     String color = (String) tileColors.getSelectedItem();
+                    tempTileColor = color;
                     BGcolor = switch (color) {
                         case "Black" -> Color.BLACK;
                         case "White" -> Color.WHITE;
@@ -120,6 +125,7 @@ public class GUI extends JFrame implements ActionListener {
                         default -> null;
                     };
                     String color2 = (String) textColors.getSelectedItem();
+                    tempTextColor = color2;
                     textColor = switch (color2) {
                         case "Black" -> Color.BLACK;
                         case "White" -> Color.WHITE;
